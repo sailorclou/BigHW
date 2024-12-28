@@ -7,7 +7,7 @@
 #include "../include/class_aat.h"
 //如有必要，可以加入其它头文件
 #include <cstring>
-#include <sstream>
+//#include <sstream>
 #include <algorithm>
 using namespace std;
 
@@ -16,7 +16,8 @@ using namespace std;
 /* ---------------------------------------------------------------
 	 允许加入其它需要static函数（内部工具用）
    ---------------------------------------------------------------- */
-static bool isInt(const string& str) {
+static bool isInt(const string& str) 
+{
 	try {
 		int value = stoi(str);  // 捕获返回值以避免警告
 		(void)value;                 // 明确表明不会使用该值
@@ -29,7 +30,8 @@ static bool isInt(const string& str) {
 		return false;  // 如果超出范围
 	}
 }
-static bool isDouble(const string& str) {
+static bool isDouble(const string& str) 
+{
 	try {
 		double value = stod(str);  // 捕获返回值以避免警告
 		(void)value;                 // 明确表明不会使用该值
@@ -42,7 +44,8 @@ static bool isDouble(const string& str) {
 		return false;  // 如果超出范围
 	}
 }
-static bool is_valid_ip(const string& str_ipaddr) {
+static bool is_valid_ip(const string& str_ipaddr) 
+{
 	int bytes[4];
 	char dot;
 	istringstream iss(str_ipaddr);
@@ -717,22 +720,22 @@ int args_analyse_process(const int argc, const char* const *const argv, args_ana
 							break;
 					case ST_EXTARGS_TYPE::str: {
 						args[j].args_existed = true;
-						if (i + 1 < argc) {
+						if (i + 1 < argc && strncmp("--", argv[i+1], 2)) {
 							args[j].args_exists = true;
 							args[j].extargs_string_value = argv[++i];
 						}
 						else {
 							if (args[j].extargs_string_default != "")
-								cout << "参数[" << arg << "]的附加参数不足. (类型:string 缺省:" << args[j].extargs_string_default << ")" << endl;
+								cout << "参数[" << arg << "]缺少附加参数. (类型:string 缺省:" << args[j].extargs_string_default << ")" << endl;
 							else
-								cout << "参数[" << arg << "]的附加参数不足. (类型:string)" << endl;
+								cout << "参数[" << arg << "]缺少附加参数. (类型:string)" << endl;
 							return -1;
 						}
 					}
 						break;
 					case ST_EXTARGS_TYPE::str_with_set_default: {
 						args[j].args_existed = true;
-						if (i + 1 < argc) {
+						if (i + 1 < argc && strncmp("--", argv[i + 1], 2)) {
 							args[j].args_exists = true;
 							string value = argv[++i];
 							bool find = 0;
@@ -767,7 +770,7 @@ int args_analyse_process(const int argc, const char* const *const argv, args_ana
 						break;
 					case ST_EXTARGS_TYPE::str_with_set_error: {
 						args[j].args_existed = true;
-						if (i + 1 < argc) {
+						if (i + 1 < argc && strncmp("--", argv[i + 1], 2)) {
 							string value = argv[++i];
 							bool find = 0;
 							for (int p = 0;;++p) {
@@ -809,7 +812,7 @@ int args_analyse_process(const int argc, const char* const *const argv, args_ana
 						break;
 					case ST_EXTARGS_TYPE::ipaddr_with_default: {
 						args[j].args_existed = true;
-						if (i + 1 < argc) {
+						if (i + 1 < argc && strncmp("--", argv[i + 1], 2)) {
 							string value_str = argv[++i];
 							u_int value_int = get_int_ipaddr(value_str);
 							if (is_valid_ip(value_str)) {
@@ -829,7 +832,7 @@ int args_analyse_process(const int argc, const char* const *const argv, args_ana
 						break;
 					case ST_EXTARGS_TYPE::ipaddr_with_error: {
 						args[j].args_existed = true;
-						if (i + 1 < argc) {
+						if (i + 1 < argc && strncmp("--", argv[i + 1], 2)) {
 							string value_str = argv[++i];
 							u_int value_int = get_int_ipaddr(value_str);
 							if (!is_valid_ip(value_str)) {

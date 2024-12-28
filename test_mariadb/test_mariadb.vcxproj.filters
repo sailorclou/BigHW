@@ -15,26 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cmd_console_tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="cmd_menu.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="cmd_gmw_tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="class_aat.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lib_aat_tools.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="class_cft.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
+    <ClCompile Include="test_mariadb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\lib_mariadb_x86\libmariadb.lib">
+      <Filter>资源文件</Filter>
+    </Library>
   </ItemGroup>
 </Project>
